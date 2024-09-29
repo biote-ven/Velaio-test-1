@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <span>Crear Nueva Tarea</span>
+</mat-toolbar>
+<form class="crear-tarea-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Raul López">
+        <mat-error *ngIf="nombreFormControl.hasError('email') && !nombreFormControl.hasError('required')">
+            Por favor Ingresa un nombre válido
+        </mat-error>
+    </mat-form-field>
+    <br><br>
+
+    <!-- Agregar el componente Person aquí -->
+    <app-person></app-person>
+
+    <br><br>
+
+    <button mat-raised-button>Guardar Tarea</button>
+    
+</form>
+   

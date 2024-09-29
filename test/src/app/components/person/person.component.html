@@ -1,27 +1,51 @@
-<p>Personas Asociadas: </p>
-<form class="crear-persona--form">
-    <mat-form-field class="example-full-width">
-        <mat-label>Nombre Completo</mat-label>
-        <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Raul López">
-        <mat-error *ngIf="nombreFormControl.hasError('email') && !nombreFormControl.hasError('required')">
-            Por favor Ingresa un nombre válido
-        </mat-error>
-    </mat-form-field>
-    <br><br>
-    <mat-form-field class="example-full-width">
-        <mat-label>Edad</mat-label>
-        <input type="number" matInput [formControl]="edadFormControl" placeholder="Ex. 35">
-        <mat-error *ngIf="edadFormControl.hasError('number') && !edadFormControl.hasError('required')">
-            Por favor Ingresa una edad válida
-        </mat-error>
-    </mat-form-field>
-
-    <br><br>
-    <app-skill [person]="person" (skillsChanged)="onSkillsChanged($event)"></app-skill>
-
-    <br><br>
-    
-
-    <button mat-raised-button>Añadir Persona</button>
-    <button mat-raised-button>Eliminar Persona</button>
-</form>
+<mat-card class="person-card">
+    <mat-card-title>Personas Asociadas</mat-card-title>
+    <mat-card-content>
+      <form class="crear-persona--form">
+        <!-- Nombre Completo -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Nombre Completo</mat-label>
+          <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Raul López">
+          <mat-error *ngIf="nombreFormControl.hasError('required')">
+            El nombre es requerido
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Espaciado -->
+        <br>
+  
+        <!-- Edad -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Edad</mat-label>
+          <input type="number" matInput [formControl]="edadFormControl" placeholder="Ex. 35">
+          <mat-error *ngIf="edadFormControl.hasError('required')">
+            La edad es requerida
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Espaciado -->
+        <br>
+  
+        <!-- Habilidades -->
+        <app-skill [person]="person" (skillsChanged)="onSkillsChanged($event)"></app-skill>
+  
+        <!-- Botones -->
+        <div class="button-group">
+            <button mat-raised-button color="primary" (click)="addPerson()">Añadir Persona</button>
+        </div>
+      </form>
+      <!-- Lista de personas añadidas -->
+        <div *ngIf="persons.length > 0">
+        <h3>Personas añadidas:</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let person of persons; let i = index">
+            {{ person.fullName }} (Edad: {{ person.age }}), Habilidades: {{ person.skills.length }}
+            <button mat-icon-button color="warn" (click)="removePerson(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

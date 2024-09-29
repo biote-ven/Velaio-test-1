@@ -8,10 +8,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
-import { HomeComponent } from './components/home/home.component'; // Ajusta la ruta según sea necesario
-import { TaskComponent } from './components/task/task.component'; // Ajusta la ruta según sea necesario
+import { HomeComponent } from './components/home/home.component'; 
+import { TaskComponent } from './components/task/task.component'; 
 import { PersonComponent } from './components/person/person.component';
-import { AppRoutingModule } from './app-routing.module'; // Ajusta la ruta según sea necesario
+import { SkillComponent } from './components/skill/skill.component';
+import { AppRoutingModule } from './app-routing.module'; 
 
 import { SkillService } from './services/skill.service';
 
@@ -32,6 +33,7 @@ export function initializeApp(skillService: SkillService) {
     TaskComponent,
     HomeComponent,
     PersonComponent,
+    SkillComponent,
     AppRoutingModule
   ],
   providers: [

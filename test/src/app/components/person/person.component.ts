@@ -5,10 +5,12 @@ import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angu
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
+import { SkillComponent } from '../skill/skill.component';
+
 @Component({
   selector: 'app-person',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, SkillComponent],
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css']
 })

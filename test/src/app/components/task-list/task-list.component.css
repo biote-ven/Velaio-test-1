@@ -1,0 +1,32 @@
+.task-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  .task-header {
+    font-weight: bold;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+  }
+  
+  .task-people {
+    margin-top: 5px;
+  }
+  
+  .task-filters {
+    margin-bottom: 10px;
+  }
+  
+  .task-filters button {
+    margin-right: 5px;
+  }
+  
+  .empty-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  

@@ -1,1 +1,38 @@
-<p>task-list works!</p>
+<mat-card>
+    <mat-card-title>Lista de Tareas</mat-card-title>
+  
+    <!-- Filtros de Tareas -->
+    <div class="task-filters">
+      <span>Filtros:</span>
+      <button mat-button (click)="filterTasks('all')">[Todas]</button>
+      <button mat-button (click)="filterTasks('completed')">[Completadas]</button>
+      <button mat-button (click)="filterTasks('pending')">[Pendientes]</button>
+    </div>
+  
+    <hr />
+  
+    <!-- Mostrar mensaje si la lista de tareas está vacía -->
+    <div *ngIf="filteredTasks.length === 0" class="empty-message">
+      <p>No hay tareas {{ emptyMessage }}.</p>
+    </div>
+  
+    <!-- Lista de Tareas -->
+    <div *ngFor="let task of filteredTasks; let i = index" class="task-item">
+      <div class="task-header">
+        <span>{{ i + 1 }}. </span>
+        <mat-checkbox [checked]="task.completed" (change)="toggleTaskCompletion(task)">
+          <span [ngClass]="{ completed: task.completed }">{{ task.name }}</span>
+        </mat-checkbox>
+        - <span>{{ task.dueDate | date: 'yyyy-MM-dd' }}</span>
+      </div>
+  
+      <div class="task-people">
+        <p>Personas Asociadas:</p>
+        <div *ngFor="let person of task.assignedPersons">
+          <span> - {{ person.fullName }} ({{ person.age }})</span>
+          <p>Habilidades: {{ getPersonSkills(person) }}</p>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+  

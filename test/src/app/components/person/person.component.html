@@ -17,7 +17,8 @@
     </mat-form-field>
 
     <br><br>
-    <app-skill></app-skill>
+    <app-skill [person]="person" (skillsChanged)="onSkillsChanged($event)"></app-skill>
+
     <br><br>
     
 

@@ -1,1 +1,20 @@
-<p>skill works!</p>
+<mat-form-field appearance="fill">
+    <mat-label>Selecciona una habilidad</mat-label>
+    <input type="text" matInput [formControl]="skillCtrl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addSkill($event.option.viewValue)">
+      <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill.name">
+        {{ skill.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <div class="selected-skills">
+    <h3>Habilidades Seleccionadas para {{ person?.fullName }}:</h3>
+    <mat-chip-listbox>
+      <mat-chip *ngFor="let skill of person?.skills" (removed)="removeSkill(skill)">
+        {{ skill.name }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-listbox>
+  </div>
+  

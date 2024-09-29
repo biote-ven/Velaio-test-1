@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; // Para el autocompletar
 
 import { HomeComponent } from './components/home/home.component'; 
 import { TaskComponent } from './components/task/task.component'; 
@@ -30,6 +33,9 @@ export function initializeApp(skillService: SkillService) {
     MatToolbarModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    MatChipsModule,
+    MatAutocompleteModule,
     TaskComponent,
     HomeComponent,
     PersonComponent,

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Skill } from '../models/task.model'; // Asegúrate de que la ruta sea correcta
+import { Skill } from '../models/task.model'; 
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class SkillService {
   constructor() { }
 
   // Método para obtener la lista de habilidades
-  getSkills(): Skill[] {
-    return this.skills;
+  getSkills(): Observable<Skill[]> {
+    return of(this.skills);
   }
 }

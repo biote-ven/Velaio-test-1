@@ -10,12 +10,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'; // Para el autocompletar
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-skill',
   standalone: true,
-  imports: [CommonModule, MatInputModule, MatFormFieldModule, MatIconModule, MatChipsModule, MatAutocompleteModule, FormsModule, ReactiveFormsModule ],
+  imports: [CommonModule, MatInputModule, MatFormFieldModule, MatIconModule, MatChipsModule, MatAutocompleteModule, MatCardModule, FormsModule, ReactiveFormsModule ],
   templateUrl: './skill.component.html',
   styleUrls: ['./skill.component.css']
 })

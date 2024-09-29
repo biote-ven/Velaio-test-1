@@ -9,7 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatAutocompleteModule } from '@angular/material/autocomplete'; // Para el autocompletar
+import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
+import { MatCardModule } from '@angular/material/card';
 
 import { HomeComponent } from './components/home/home.component'; 
 import { TaskComponent } from './components/task/task.component'; 
@@ -36,6 +37,7 @@ export function initializeApp(skillService: SkillService) {
     MatIconModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatCardModule,
     TaskComponent,
     HomeComponent,
     PersonComponent,

@@ -1,0 +1,23 @@
+<p>Personas Asociadas: </p>
+<form class="crear-persona--form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Nombre Completo</mat-label>
+        <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Raul López">
+        <mat-error *ngIf="nombreFormControl.hasError('email') && !nombreFormControl.hasError('required')">
+            Por favor Ingresa un nombre válido
+        </mat-error>
+    </mat-form-field>
+    <br><br>
+    <mat-form-field class="example-full-width">
+        <mat-label>Edad</mat-label>
+        <input type="number" matInput [formControl]="edadFormControl" placeholder="Ex. 35">
+        <mat-error *ngIf="edadFormControl.hasError('number') && !edadFormControl.hasError('required')">
+            Por favor Ingresa una edad válida
+        </mat-error>
+    </mat-form-field>
+
+    <br><br>
+
+    <button mat-raised-button>Añadir Persona</button>
+    <button mat-raised-button>Eliminar Persona</button>
+</form>

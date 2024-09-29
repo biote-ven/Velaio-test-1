@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -31,6 +31,9 @@ import { Person, Skill } from '../../models/task.model';
   styleUrls: ['./person.component.css']
 })
 export class PersonComponent {
+  @Output() personsChanged = new EventEmitter<Person[]>(); // Emitir cambios en la lista de personas
+
+
   nombreFormControl = new FormControl('', [Validators.required]);
   edadFormControl = new FormControl(0, [Validators.required]);
 
@@ -61,6 +64,9 @@ export class PersonComponent {
       // Agregar la nueva persona a la lista
       this.persons.push(newPerson);
 
+      // Emitir la lista actualizada de personas
+      this.personsChanged.emit(this.persons);
+
       // Limpiar el formulario
       this.nombreFormControl.reset();
       this.edadFormControl.reset();
@@ -78,6 +84,7 @@ export class PersonComponent {
     if (index >= 0 && index < this.persons.length) {
       console.log('Persona eliminada:', this.persons[index]);
       this.persons.splice(index, 1); // Eliminar persona por índice
+      this.personsChanged.emit(this.persons); // Emitir la lista actualizada después de eliminar
     }
   }
 }

@@ -12,6 +12,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete'; 
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { HomeComponent } from './components/home/home.component'; 
 import { TaskComponent } from './components/task/task.component'; 
@@ -40,6 +41,7 @@ export function initializeApp(skillService: SkillService) {
     MatAutocompleteModule,
     MatCardModule,
     MatListModule,
+    MatTooltipModule,
     TaskComponent,
     HomeComponent,
     PersonComponent,

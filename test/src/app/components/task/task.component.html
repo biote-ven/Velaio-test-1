@@ -2,21 +2,24 @@
     <span>Crear Nueva Tarea</span>
 </mat-toolbar>
 <form class="crear-tarea-form">
+    <!-- Nombre de la tarea -->
     <mat-form-field class="example-full-width">
-        <mat-label>Nombre</mat-label>
-        <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Raul López">
-        <mat-error *ngIf="nombreFormControl.hasError('email') && !nombreFormControl.hasError('required')">
-            Por favor Ingresa un nombre válido
+        <mat-label>Nombre de la Tarea</mat-label>
+        <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Desarrollar API">
+        <mat-error *ngIf="nombreFormControl.hasError('required')">
+            El nombre de la tarea es requerido.
         </mat-error>
     </mat-form-field>
+
+    <!-- Espacio -->
     <br><br>
 
-    <!-- Agregar el componente Person aquí -->
-    <app-person></app-person>
+    <!-- Componente Person para asociar personas a la tarea -->
+    <app-person (personsChanged)="onPersonsChanged($event)"></app-person>
 
+    <!-- Espacio -->
     <br><br>
 
-    <button mat-raised-button>Guardar Tarea</button>
-    
+    <!-- Botón para guardar la tarea -->
+    <button mat-raised-button color="primary" (click)="createTask()" matTooltip="Tooltip programático" #tooltip="matTooltip">Guardar Tarea</button>
 </form>
-   

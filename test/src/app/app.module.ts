@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -12,6 +12,12 @@ import { HomeComponent } from './components/home/home.component'; // Ajusta la r
 import { TaskComponent } from './components/task/task.component'; // Ajusta la ruta según sea necesario
 import { PersonComponent } from './components/person/person.component';
 import { AppRoutingModule } from './app-routing.module'; // Ajusta la ruta según sea necesario
+
+import { SkillService } from './services/skill.service';
+
+export function initializeApp(skillService: SkillService) {
+  return () => skillService.getSkills();
+}
 
 @NgModule({
   declarations: [
@@ -28,7 +34,16 @@ import { AppRoutingModule } from './app-routing.module'; // Ajusta la ruta segú
     PersonComponent,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    SkillService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [SkillService],
+      multi: true,
+    },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

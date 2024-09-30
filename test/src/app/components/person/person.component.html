@@ -9,6 +9,9 @@
           <mat-error *ngIf="nombreFormControl.hasError('required')">
             El nombre es requerido
           </mat-error>
+          <mat-error *ngIf="nombreFormControl.hasError('minlength')">
+            El nombre debe tener al menos 5 caracteres
+          </mat-error>
         </mat-form-field>
   
         <!-- Espaciado -->
@@ -21,6 +24,9 @@
           <mat-error *ngIf="edadFormControl.hasError('required')">
             La edad es requerida
           </mat-error>
+          <mat-error *ngIf="edadFormControl.hasError('min')">
+            La edad debe ser mayor a 18
+          </mat-error>
         </mat-form-field>
   
         <!-- Espaciado -->
@@ -31,7 +37,12 @@
   
         <!-- Botones -->
         <div class="button-group">
-            <button mat-raised-button color="primary" (click)="addPerson()">Añadir Persona</button>
+          <button mat-raised-button 
+          color="primary" 
+          (click)="addPerson()" 
+          matTooltip="Debe seleccionar al menos una habilidad"
+          [matTooltipShowDelay]="500"
+          [matTooltipDisabled]="!showTooltip">Añadir Persona</button>
         </div>
       </form>
       <!-- Lista de personas añadidas -->

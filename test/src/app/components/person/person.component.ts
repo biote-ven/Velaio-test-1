@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card'; // Para las tarjetas vis
 import { MatButtonModule } from '@angular/material/button'; // Para los botones
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltip } from '@angular/material/tooltip';
 
 import { SkillComponent } from '../skill/skill.component';
 import { Person, Skill } from '../../models/task.model';
@@ -25,6 +27,7 @@ import { Person, Skill } from '../../models/task.model';
     MatButtonModule, 
     MatIconModule,
     MatListModule,
+    MatTooltipModule,
     SkillComponent
   ],
   templateUrl: './person.component.html',
@@ -34,8 +37,11 @@ export class PersonComponent {
   @Output() personsChanged = new EventEmitter<Person[]>(); // Emitir cambios en la lista de personas
 
 
-  nombreFormControl = new FormControl('', [Validators.required]);
-  edadFormControl = new FormControl(0, [Validators.required]);
+  nombreFormControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
+  edadFormControl = new FormControl(0, [Validators.required, Validators.min(19)]);
+
+   // Para controlar si mostrar el tooltip de error
+   showTooltip = false;
 
   // Lista de personas
   persons: Person[] = [];
@@ -54,6 +60,7 @@ export class PersonComponent {
 
   addPerson() {
     if (this.nombreFormControl.valid && this.edadFormControl.valid) {
+      if (this.person.skills.length > 0) {
       // Crear un nuevo objeto Person basado en los campos del formulario
       const newPerson: Person = {
         fullName: this.nombreFormControl.value!,
@@ -74,6 +81,11 @@ export class PersonComponent {
 
       console.log('Persona añadida:', newPerson);
       console.log('Lista de personas:', this.persons);
+      }  else {
+        // Si no hay habilidades seleccionadas, mostrar tooltip
+        this.showTooltip = true;
+        console.log('Por favor, selecciona al menos una habilidad.');
+      }
     } else {
       console.log('Por favor, completa todos los campos correctamente.');
     }

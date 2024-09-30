@@ -10,8 +10,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatCardModule } from '@angular/material/card'; // Para las tarjetas visuales
-import { Router } from '@angular/router'; // Importar el servicio Router
+import { MatCardModule } from '@angular/material/card'; 
+import { Router } from '@angular/router'; 
 
 import { PersonComponent } from '../person/person.component'; 
 
@@ -74,6 +74,22 @@ export class TaskComponent {
     // Función para crear la tarea
     createTask() {
       if (this.nombreFormControl.valid && this.fechaFormControl.valid) {
+
+        // Validar si hay personas añadidas
+        if (this.persons.length === 0) {
+          this.showTooltip('Debes agregar al menos una persona.', 8000);
+          return; // Detener si no hay personas
+        }
+
+        // Validar habilidades de cada persona
+        for (const person of this.persons) {
+          if (person.skills.length === 0) {
+            this.showTooltip(`La persona ${person.fullName} debe tener al menos una habilidad.`, 8000);
+            return; // Detener si alguna persona no tiene habilidades
+          }
+        }
+
+
         const newTask: Task = {
           id: this.tasks.length + 1, // Generar un ID incrementado
           name: this.nombreFormControl.value!,
@@ -90,10 +106,7 @@ export class TaskComponent {
 
         // Redirigir a la página anterior después de crear la tarea
         this.router.navigate(['..']); // Navegar a la página anterior
-        // Limpiar el formulario y la lista de personas
-        //this.nombreFormControl.reset();
-        //this.fechaFormControl.reset(new Date());
-        //this.persons = [];
+ 
       } else {
         console.log('Por favor, completa todos los campos correctamente.');
         this.showTooltip('Por favor, completa todos los campos correctamente.', 8000);

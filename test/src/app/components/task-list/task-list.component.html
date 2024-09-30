@@ -1,5 +1,14 @@
+<mat-toolbar color="primary">
+  <span>Lista de Tareas</span>
+</mat-toolbar>
+
+
 <mat-card>
-    <mat-card-title>Lista de Tareas</mat-card-title>
+
+   <!-- Botón Actualizar -->
+   <div class="update-button-container">
+    <button mat-raised-button color="primary" (click)="updateTasks()" [disabled]="!hasChanges">Actualizar</button>
+    </div>
   
     <!-- Filtros de Tareas -->
     <div class="task-filters">
@@ -28,9 +37,19 @@
   
       <div class="task-people">
         <p>Personas Asociadas:</p>
-        <div *ngFor="let person of task.assignedPersons">
+        <div *ngFor="let person of task.assignedPersons; let j = index">
           <span> - {{ person.fullName }} ({{ person.age }})</span>
-          <p>Habilidades: {{ getPersonSkills(person) }}</p>
+          <button mat-icon-button color="warn" (click)="removePersonFromTask(task, j)">
+            <mat-icon>delete</mat-icon> <!-- Botón para eliminar persona -->
+          </button>          
+          <p>Habilidades: 
+            <span *ngFor="let skill of person.skills; let k = index">
+              {{ skill.name }}
+              <button mat-icon-button color="warn" (click)="removeSkillFromPerson(task, j, k)">
+                <mat-icon>remove_circle_outline</mat-icon> <!-- Botón para eliminar habilidad -->
+              </button>
+            </span>
+          </p>
         </div>
       </div>
     </div>

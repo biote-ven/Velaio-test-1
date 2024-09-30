@@ -1,61 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 
-interface Skill {
-  name: string;
-}
-
-interface Person {
-  fullName: string;
-  age: number;
-  skills: Skill[];
-}
-
-interface Task {
-  id: number;
-  name: string;
-  dueDate: Date;
-  assignedPersons: Person[];
-  completed: boolean;
-}
+import { TaskService } from '../../services/task.service';
+import { Task, Person } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatCheckboxModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatCheckboxModule, MatButtonModule, MatToolbarModule, MatIconModule],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
 })
-export class TaskListComponent {
-  tasks: Task[] = [
-    {
-      id: 1,
-      name: 'Tarea A',
-      dueDate: new Date('2024-10-01'),
-      assignedPersons: [
-        { fullName: 'Juan Pérez', age: 25, skills: [{ name: 'JavaScript' }, { name: 'Angular' }] },
-        { fullName: 'María López', age: 30, skills: [{ name: 'TypeScript' }, { name: 'CSS' }] },
-      ],
-      completed: false,
-    },
-    {
-      id: 2,
-      name: 'Tarea B',
-      dueDate: new Date('2024-09-25'),
-      assignedPersons: [
-        { fullName: 'Carlos Gómez', age: 40, skills: [{ name: 'HTML' }, { name: 'SCSS' }] },
-      ],
-      completed: true,
-    },
-  ];
-
-  filteredTasks: Task[] = [...this.tasks];
+export class TaskListComponent implements OnInit{
+  
+  tasks: Task[] = [];
+  filteredTasks: Task[] = [];
   emptyMessage: string = 'disponibles';
+  hasChanges: boolean = false; // Bandera para detectar si hay cambios en las tareas
 
-  filterTasks(filter: string) {
+  constructor(private taskService: TaskService) {}
+
+ // Al inicializar el componente, obtenemos las tareas del servicio
+  ngOnInit() {
+    this.taskService.tasks$.subscribe((tasks) => {
+      this.tasks = tasks;
+      this.filterTasks('all'); // Mostrar todas las tareas por defecto
+    });
+  }
+
+   // Función para aplicar filtros de tareas
+   filterTasks(filter: string) {
     if (filter === 'all') {
       this.filteredTasks = [...this.tasks];
       this.emptyMessage = 'disponibles';
@@ -68,12 +47,34 @@ export class TaskListComponent {
     }
   }
 
-  toggleTaskCompletion(task: Task) {
-    task.completed = !task.completed;
+ // Alternar el estado de completado de una tarea
+ toggleTaskCompletion(task: Task) {
+  task.completed = !task.completed;
+  this.hasChanges = true; // Marcar que hay cambios
+}
+
+  // Función para eliminar una persona de una tarea
+  removePersonFromTask(task: Task, personIndex: number) {
+    task.assignedPersons.splice(personIndex, 1); // Eliminar persona de la lista
+    this.hasChanges = true; // Marcar que hay cambios
   }
 
-  // Nueva función para obtener las habilidades de una persona
-  getPersonSkills(person: Person): string {
-    return person.skills?.map(skill => skill.name).join(', ') || 'No tiene habilidades';
+  // Función para eliminar una habilidad de una persona
+  removeSkillFromPerson(task: Task, personIndex: number, skillIndex: number) {
+    task.assignedPersons[personIndex].skills.splice(skillIndex, 1); // Eliminar habilidad de la persona
+    this.hasChanges = true; // Marcar que hay cambios
   }
+
+ // Función para actualizar las tareas mediante el servicio
+ updateTasks() {
+  if (this.hasChanges) {
+    this.taskService.updateTasks(this.tasks); // Llamar al servicio para actualizar las tareas
+    this.hasChanges = false; // Resetear la bandera de cambios
+  }
+}
+
+// Función para obtener las habilidades de una persona
+getPersonSkills(person: Person): string {
+  return person.skills?.map((skill) => skill.name).join(', ') || 'No tiene habilidades';
+}
 }

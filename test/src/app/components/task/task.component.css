@@ -1,0 +1,16 @@
+.crear-tarea-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mat-form-field {
+    width: 100%; /* Se puede ajustar según el ancho deseado */
+    max-width: 500px;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  

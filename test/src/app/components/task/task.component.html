@@ -1,25 +1,46 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
     <span>Crear Nueva Tarea</span>
 </mat-toolbar>
-<form class="crear-tarea-form">
-    <!-- Nombre de la tarea -->
-    <mat-form-field class="example-full-width">
-        <mat-label>Nombre de la Tarea</mat-label>
-        <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Desarrollar API">
-        <mat-error *ngIf="nombreFormControl.hasError('required')">
-            El nombre de la tarea es requerido.
-        </mat-error>
-    </mat-form-field>
+<mat-card class="crear-tarea-card">
+    <form class="crear-tarea-form">
+        <!-- Nombre de la tarea -->
+        <br><br> 
+        <mat-form-field class="example-full-width">
+            <mat-label>Nombre de la Tarea</mat-label>
+            
+            <input type="text" matInput [formControl]="nombreFormControl" placeholder="Ex. Desarrollar API">
+            <mat-error *ngIf="nombreFormControl.hasError('required')">
+                El nombre de la tarea es requerido.
+            </mat-error>
+        </mat-form-field>
+    
+        <!-- Espacio -->
+        <br><br>
 
-    <!-- Espacio -->
-    <br><br>
+          <!-- Campo para manejar Fecha Límite -->
+          <mat-form-field class="example-full-width">
+            <mat-label>Fecha Límite</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="fechaFormControl">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="fechaFormControl.hasError('required')">
+                La fecha límite es requerida.
+            </mat-error>
+        </mat-form-field>
 
-    <!-- Componente Person para asociar personas a la tarea -->
-    <app-person (personsChanged)="onPersonsChanged($event)"></app-person>
+        <!-- Espacio -->
+        <br><br>
+    
+        <!-- Componente Person para asociar personas a la tarea -->
+        <app-person (personsChanged)="onPersonsChanged($event)"></app-person>
+    
+        <!-- Espacio -->
+        <br><br>
+    
+        <!-- Botón para guardar la tarea -->
+        <button mat-raised-button color="primary" (click)="createTask()" matTooltip="Tooltip programático" #tooltip="matTooltip">Guardar Tarea</button>
+    </form>
+    
 
-    <!-- Espacio -->
-    <br><br>
 
-    <!-- Botón para guardar la tarea -->
-    <button mat-raised-button color="primary" (click)="createTask()" matTooltip="Tooltip programático" #tooltip="matTooltip">Guardar Tarea</button>
-</form>
+</mat-card>

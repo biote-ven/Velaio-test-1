@@ -1,7 +1,3 @@
-export interface TaskModel {
-}
-
-
 export interface Skill {
     name: string; // Nombre de la habilidad
 }
